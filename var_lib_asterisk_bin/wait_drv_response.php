@@ -15,18 +15,19 @@
   
   #$cid = $agi->parse_callerid();
   #$agi->exec('Playback','custom/taxi_arrived_tts');
-  #$agi->exec('Playback','beep');	
-  $agi->exec('SayDigits',2);
+  #$agi->exec('SayDigits',2);
+  $result = $agi->get_data('custom/taxi_arrived_tts', 1000, 20);
+  $keys = $result['result'];
 
-  do{
+  while($keys != '1' && $keys != '2'){
     $result = $agi->get_data('beep', 1000, 20);
     $keys = $result['result'];
-    $agi->exec('SayDigits',$keys);
-  } while($keys != '1' && $keys != '2');
+    #$agi->exec('SayDigits',$keys);
+  } 
 
   #$agi->exec('dial', "SIP/27");
 
-  $mUrl = "http://192.168.24.27/webapi/api/asterisk/get/$mEx/$mCh/$keys";
+  $mUrl = "http://192.168.24.27/webapi/api/asterisk/get/$mCh/$mEx/$keys";
   $response = file_get_contents($mUrl);
   
   $agi->hangup();

@@ -9,7 +9,7 @@
   $hashPos = strpos($mChannel, '-');
   $mCh = substr($mChannel, 4, $hashPos-4);
   $mEx = substr($mExtention, 3, strlen($mExtention));
-  $mUrl = "http://192.168.24.27/webapi/api/asterisk/get/$mEx/$mCh/null";
+  $mUrl = "http://192.168.24.27/webapi/api/asterisk/UpdateDBForMessage/$mEx/$mCh";
   $response = file_get_contents($mUrl);
 
   $agi = new AGI();
